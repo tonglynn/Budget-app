@@ -4,6 +4,7 @@
   font-weight: bold;
   font-style: normal;
 }
+
 @font-face {
   font-family: "Gilroy Bold";
   src: url("font/Gilroy-Bold.woff") format("woff");
@@ -57,6 +58,7 @@ input[type="number"] {
 .budget-container .app-title a {
   color: #fff;
 }
+
 .budget-container .app-title a b {
   font-family: "Gilroy Bold";
 }
@@ -103,6 +105,7 @@ input[type="number"] {
   color: #fff;
   opacity: 0.5;
 }
+
 .budget-header .account .income .income-total {
   color: #fff;
   font-family: "Gilroy Bold";
@@ -112,6 +115,7 @@ input[type="number"] {
   color: #fff;
   opacity: 0.5;
 }
+
 .budget-header .account .outcome .outcome-total {
   color: #f0624d;
   font-family: "Gilroy Bold";
@@ -180,6 +184,7 @@ input[type="number"] {
   height: auto;
   position: relative;
 }
+
 .budget-dashboard #all ul {
   width: 360px;
   height: 270px;
@@ -227,6 +232,7 @@ input[type="number"] {
 
 .budget-dashboard #all ul.list li.income {
 }
+
 .budget-dashboard #all ul.list li.expense {
   color: #f0624d;
 }
@@ -434,4 +440,34 @@ input[type="number"] {
   background-image: url("icon/trash.png");
   background-size: 20px 20px;
   background-repeat: no-repeat;
+}
+
+/* LANGUAGE SWITCHER */
+.language-switcher {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.language-switcher button {
+  padding: 5px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 12px;
+  font-family: "Gilroy Bold";
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.language-switcher button:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.language-switcher button:active {
+  transform: scale(0.96);
 }

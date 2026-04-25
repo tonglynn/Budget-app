@@ -14,6 +14,10 @@ const expenseBtn = document.querySelector(".first-tab");
 const incomeBtn = document.querySelector(".second-tab");
 const allBtn = document.querySelector(".third-tab");
 
+//LANGUAGE BUTTONS
+const englishBtn = document.getElementById("lang-en");
+const chineseBtn = document.getElementById("lang-zh");
+
 //INPUT BTS
 const addExpense = document.querySelector(".add-expense");
 const expenseTitle = document.getElementById("expense-title-input");
@@ -23,17 +27,43 @@ const addIncome = document.querySelector(".add-income");
 const incomeTitle = document.getElementById("income-title-input");
 const incomeAmount = document.getElementById("income-amount-input");
 
+// I18N TRANSLATIONS
+const translations = {
+  en: {
+    balance: "Balance",
+    income: "Income",
+    outcome: "Outcome",
+    dashboard: "Dashboard",
+    expenses: "Expenses",
+    all: "All",
+    titlePlaceholder: "title",
+  },
+  zh: {
+    balance: "余额",
+    income: "收入",
+    outcome: "支出",
+    dashboard: "总览",
+    expenses: "支出",
+    all: "全部",
+    titlePlaceholder: "标题",
+  },
+};
+
 //VARIABLES
 let ENTRY_LIST;
 let balance = 0,
   income = 0,
   outcome = 0;
+
+let currentLanguage = localStorage.getItem("language") || "en";
+
 const DELETE = "delete",
   EDIT = "edit";
 
 // LOOK IF THERE IS DATA IN LOCAL STORAGE
 ENTRY_LIST = JSON.parse(localStorage.getItem("entry_list")) || [];
 updateUI();
+applyLanguage(currentLanguage);
 
 //EVENT LISTENERS
 expenseBtn.addEventListener("click", function () {
@@ -42,12 +72,14 @@ expenseBtn.addEventListener("click", function () {
   active(expenseBtn);
   inactive([incomeBtn, allBtn]);
 });
+
 incomeBtn.addEventListener("click", function () {
   show(incomeEl);
   hide([expenseEl, allEl]);
   active(incomeBtn);
   inactive([expenseBtn, allBtn]);
 });
+
 allBtn.addEventListener("click", function () {
   show(allEl);
   hide([incomeEl, expenseEl]);
@@ -65,6 +97,7 @@ addExpense.addEventListener("click", function () {
     title: expenseTitle.value,
     amount: +expenseAmount.value,
   };
+
   ENTRY_LIST.push(expense);
 
   updateUI();
@@ -81,6 +114,7 @@ addIncome.addEventListener("click", function () {
     title: incomeTitle.value,
     amount: +incomeAmount.value,
   };
+
   ENTRY_LIST.push(income);
 
   updateUI();
@@ -90,6 +124,41 @@ addIncome.addEventListener("click", function () {
 incomeList.addEventListener("click", deleteOrEdit);
 expenseList.addEventListener("click", deleteOrEdit);
 allList.addEventListener("click", deleteOrEdit);
+
+if (englishBtn) {
+  englishBtn.addEventListener("click", function () {
+    applyLanguage("en");
+  });
+}
+
+if (chineseBtn) {
+  chineseBtn.addEventListener("click", function () {
+    applyLanguage("zh");
+  });
+}
+
+// I18N FUNCTION
+function applyLanguage(language) {
+  currentLanguage = language;
+  localStorage.setItem("language", language);
+  document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
+
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    const key = element.getAttribute("data-i18n");
+
+    if (translations[language][key]) {
+      element.textContent = translations[language][key];
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+    const key = element.getAttribute("data-i18n-placeholder");
+
+    if (translations[language][key]) {
+      element.setAttribute("placeholder", translations[language][key]);
+    }
+  });
+}
 
 // HELEPER FUNCS
 function deleteOrEdit(event) {
@@ -118,6 +187,7 @@ function editEntry(entry) {
     expenseTitle.value = ENTRY.title;
     expenseAmount.value = ENTRY.amount;
   }
+
   deleteEntry(entry);
 }
 
@@ -141,8 +211,10 @@ function updateUI() {
     } else if (entry.type == "income") {
       showEntry(incomeList, entry.type, entry.title, entry.amount, index);
     }
+
     showEntry(allList, entry.type, entry.title, entry.amount, index);
   });
+
   updateChart(income, outcome);
   localStorage.setItem("entry_list", JSON.stringify(ENTRY_LIST));
 }
@@ -153,6 +225,7 @@ function showEntry(list, type, title, amount, id) {
                     <div id="edit"></div>
                     <div id="delete"></div>
                   </li>`;
+
   const position = "afterbegin";
   list.insertAdjacentHTML(position, entry);
 }
@@ -165,17 +238,20 @@ function clearElement(elements) {
 
 function calculateTotal(type, list) {
   let sum = 0;
+
   list.forEach((entry) => {
     if (entry.type == type) {
       sum += entry.amount;
     }
   });
+
   return sum;
 }
 
 function calculateBalance(income, outcome) {
   return income - outcome;
 }
+
 function clearInput(inputs) {
   inputs.forEach((input) => {
     input.value = "";
@@ -195,6 +271,7 @@ function hide(elements) {
 function active(element) {
   element.classList.add("focus");
 }
+
 function inactive(elements) {
   elements.forEach((element) => {
     element.classList.remove("focus");
