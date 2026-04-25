@@ -13,9 +13,15 @@
         <a href="">Budget<b>App</b></a>
       </div>
 
-      <div class="language-switcher" style="text-align: right;">
-        <button id="lang-en" type="button">EN</button>
-        <button id="lang-zh" type="button">中文</button>
+      <div class="language-switcher">
+        <label for="lang-select" class="language-label" data-i18n="languageLabel">
+          Language Selection
+        </label>
+        <select id="lang-select" aria-label="Language Selection">
+          <option value="en">English</option>
+          <option value="zh">中文</option>
+          <option value="ja">日本語</option>
+        </select>
       </div>
 
       <div class="budget-header">
@@ -35,6 +41,7 @@
           </div>
         </div>
       </div>
+
       <div class="budget-dashboard">
         <div class="dash-title" data-i18n="dashboard">Dashboard</div>
         <div class="toggle">
@@ -42,6 +49,7 @@
           <div class="second-tab" data-i18n="income">Income</div>
           <div class="third-tab focus" data-i18n="all">All</div>
         </div>
+
         <div class="hide" id="expense">
           <ul class="list"></ul>
           <div class="input">
@@ -63,6 +71,7 @@
             </div>
           </div>
         </div>
+
         <div class="hide" id="income">
           <ul class="list"></ul>
           <div class="input">
@@ -84,11 +93,13 @@
             </div>
           </div>
         </div>
+
         <div id="all">
           <ul class="list"></ul>
         </div>
       </div>
     </div>
+
     <script src="./chart.js"></script>
     <script src="./budget.js"></script>
   </body>

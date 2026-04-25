@@ -14,9 +14,8 @@ const expenseBtn = document.querySelector(".first-tab");
 const incomeBtn = document.querySelector(".second-tab");
 const allBtn = document.querySelector(".third-tab");
 
-//LANGUAGE BUTTONS
-const englishBtn = document.getElementById("lang-en");
-const chineseBtn = document.getElementById("lang-zh");
+//LANGUAGE SELECT
+const langSelect = document.getElementById("lang-select");
 
 //INPUT BTS
 const addExpense = document.querySelector(".add-expense");
@@ -30,6 +29,7 @@ const incomeAmount = document.getElementById("income-amount-input");
 // I18N TRANSLATIONS
 const translations = {
   en: {
+    languageLabel: "Language",
     balance: "Balance",
     income: "Income",
     outcome: "Outcome",
@@ -39,6 +39,7 @@ const translations = {
     titlePlaceholder: "title",
   },
   zh: {
+    languageLabel: "语言选择",
     balance: "余额",
     income: "收入",
     outcome: "支出",
@@ -46,6 +47,16 @@ const translations = {
     expenses: "支出",
     all: "全部",
     titlePlaceholder: "标题",
+  },
+  ja: {
+    languageLabel: "言語選択",
+    balance: "残高",
+    income: "収入",
+    outcome: "支出",
+    dashboard: "概要",
+    expenses: "支出",
+    all: "すべて",
+    titlePlaceholder: "タイトル",
   },
 };
 
@@ -125,23 +136,28 @@ incomeList.addEventListener("click", deleteOrEdit);
 expenseList.addEventListener("click", deleteOrEdit);
 allList.addEventListener("click", deleteOrEdit);
 
-if (englishBtn) {
-  englishBtn.addEventListener("click", function () {
-    applyLanguage("en");
-  });
-}
-
-if (chineseBtn) {
-  chineseBtn.addEventListener("click", function () {
-    applyLanguage("zh");
+if (langSelect) {
+  langSelect.addEventListener("change", function () {
+    applyLanguage(langSelect.value);
   });
 }
 
 // I18N FUNCTION
 function applyLanguage(language) {
+  if (!translations[language]) {
+    language = "en";
+  }
+
   currentLanguage = language;
   localStorage.setItem("language", language);
-  document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
+
+  if (language === "zh") {
+    document.documentElement.lang = "zh-CN";
+  } else if (language === "ja") {
+    document.documentElement.lang = "ja";
+  } else {
+    document.documentElement.lang = "en";
+  }
 
   document.querySelectorAll("[data-i18n]").forEach((element) => {
     const key = element.getAttribute("data-i18n");
@@ -158,6 +174,11 @@ function applyLanguage(language) {
       element.setAttribute("placeholder", translations[language][key]);
     }
   });
+
+  if (langSelect) {
+    langSelect.value = language;
+    langSelect.setAttribute("aria-label", translations[language].languageLabel);
+  }
 }
 
 // HELEPER FUNCS
