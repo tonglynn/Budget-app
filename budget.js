@@ -200,3 +200,21 @@ function inactive(elements) {
     element.classList.remove("focus");
   });
 }
+// ── Exports for testing ──
+if (typeof module !== "undefined") {
+  module.exports = {
+    calculateTotal,
+    calculateBalance,
+    show,
+    hide,
+    active,
+    inactive,
+    clearElement,
+    clearInput,
+    showEntry,
+    deleteEntry,
+    editEntry,
+    get ENTRY_LIST() { return ENTRY_LIST; },
+    set ENTRY_LIST(v) { ENTRY_LIST = v; },
+  };
+}
