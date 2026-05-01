@@ -1,6 +1,7 @@
 {
   "name": "budget-app",
   "version": "1.0.0",
+<<<<<<< improve-tests
   "scripts": {
     "test": "jest --coverage"
   },
@@ -13,5 +14,26 @@
     "collectCoverageFrom": [
       "budget.js"
     ]
+=======
+  "description": "Welcome to the Budget App! This project is the result of following a comprehensive YouTube tutorial that guides you through building a budget management application from scratch. With this app, you can efficiently track your income, expenses, and overall budget, gaining better control of your financial situation.",
+  "main": "budget.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tonglynn/Budget-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/tonglynn/Budget-app/issues"
+  },
+  "homepage": "https://github.com/tonglynn/Budget-app#readme",
+  "devDependencies": {
+    "jest": "^30.3.0"
+>>>>>>> master
   }
 }
