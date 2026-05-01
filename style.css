@@ -4,6 +4,7 @@
   font-weight: bold;
   font-style: normal;
 }
+
 @font-face {
   font-family: "Gilroy Bold";
   src: url("font/Gilroy-Bold.woff") format("woff");
@@ -57,6 +58,7 @@ input[type="number"] {
 .budget-container .app-title a {
   color: #fff;
 }
+
 .budget-container .app-title a b {
   font-family: "Gilroy Bold";
 }
@@ -103,6 +105,7 @@ input[type="number"] {
   color: #fff;
   opacity: 0.5;
 }
+
 .budget-header .account .income .income-total {
   color: #fff;
   font-family: "Gilroy Bold";
@@ -112,6 +115,7 @@ input[type="number"] {
   color: #fff;
   opacity: 0.5;
 }
+
 .budget-header .account .outcome .outcome-total {
   color: #f0624d;
   font-family: "Gilroy Bold";
@@ -180,6 +184,7 @@ input[type="number"] {
   height: auto;
   position: relative;
 }
+
 .budget-dashboard #all ul {
   width: 360px;
   height: 270px;
@@ -227,6 +232,7 @@ input[type="number"] {
 
 .budget-dashboard #all ul.list li.income {
 }
+
 .budget-dashboard #all ul.list li.expense {
   color: #f0624d;
 }
@@ -434,4 +440,46 @@ input[type="number"] {
   background-image: url("icon/trash.png");
   background-size: 20px 20px;
   background-repeat: no-repeat;
+}
+
+/* LANGUAGE SWITCHER */
+.language-switcher {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  z-index: 10;
+}
+
+.language-switcher .language-label {
+  color: #ffffff;
+  font-size: 11px;
+  font-family: "Gilroy Bold";
+  opacity: 0.9;
+  text-align: right;
+}
+
+.language-switcher select {
+  min-width: 100px;
+  padding: 5px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 12px;
+  font-family: "Gilroy Bold";
+  cursor: pointer;
+  outline: none;
+}
+
+.language-switcher select:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.language-switcher select option {
+  color: #1a0034;
+  background-color: #ffffff;
 }
