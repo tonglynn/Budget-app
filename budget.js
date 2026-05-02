@@ -282,9 +282,21 @@ function updateUI() {
   localStorage.setItem("entry_list", JSON.stringify(ENTRY_LIST));
 }
 
+// HELPER FUNC: Escape special HTML characters to prevent XSS attacks
+function escapeHTML(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 function showEntry(list, type, title, amount, id) {
+  const safeTitle = escapeHTML(title);
+  const safeAmount = escapeHTML(amount);
   const entry = `<li id="${id}" class="${type}">
-                    <div class="entry">${title} : $${amount}</div>
+                    <div class="entry">${safeTitle} : $${safeAmount}</div>
                     <div id="edit"></div>
                     <div id="delete"></div>
                   </li>`;
@@ -356,6 +368,7 @@ if (typeof module !== "undefined") {
     deleteEntry,
     editEntry,
     validateEntryInput,
+    escapeHTML,
     get ENTRY_LIST() {
       return ENTRY_LIST;
     },
