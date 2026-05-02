@@ -37,6 +37,8 @@ const translations = {
     expenses: "Expenses",
     all: "All",
     titlePlaceholder: "title",
+    titleRequired: "Please enter a title.",
+    amountPositiveRequired: "Please enter a positive amount.",
   },
   zh: {
     languageLabel: "语言选择",
@@ -47,6 +49,8 @@ const translations = {
     expenses: "支出",
     all: "全部",
     titlePlaceholder: "标题",
+    titleRequired: "请输入标题。",
+    amountPositiveRequired: "请输入大于 0 的金额。",
   },
   ja: {
     languageLabel: "言語選択",
@@ -57,6 +61,8 @@ const translations = {
     expenses: "支出",
     all: "すべて",
     titlePlaceholder: "タイトル",
+    titleRequired: "タイトルを入力してください。",
+    amountPositiveRequired: "0より大きい金額を入力してください。",
   },
 };
 
@@ -99,14 +105,17 @@ allBtn.addEventListener("click", function () {
 });
 
 addExpense.addEventListener("click", function () {
-  // CHECK IF ONE OF THE INPUT IS EMPTY => EXIT
-  if (!expenseTitle.value || !expenseAmount.value) return;
+  const validExpense = validateEntryInput(expenseTitle, expenseAmount);
 
-  // ADD INPUTs TO ENTRY_LIST
+  if (!validExpense.isValid) {
+    showValidationMessage(validExpense.messageKey);
+    return;
+  }
+
   let expense = {
     type: "expense",
-    title: expenseTitle.value,
-    amount: +expenseAmount.value,
+    title: validExpense.title,
+    amount: validExpense.amount,
   };
 
   ENTRY_LIST.push(expense);
@@ -116,14 +125,17 @@ addExpense.addEventListener("click", function () {
 });
 
 addIncome.addEventListener("click", function () {
-  // CHECK IF ONE OF THE INPUT IS EMPTY => EXIT
-  if (!incomeTitle.value || !incomeAmount.value) return;
+  const validIncome = validateEntryInput(incomeTitle, incomeAmount);
 
-  // ADD INPUTs TO ENTRY_LIST
+  if (!validIncome.isValid) {
+    showValidationMessage(validIncome.messageKey);
+    return;
+  }
+
   let income = {
     type: "income",
-    title: incomeTitle.value,
-    amount: +incomeAmount.value,
+    title: validIncome.title,
+    amount: validIncome.amount,
   };
 
   ENTRY_LIST.push(income);
@@ -181,7 +193,37 @@ function applyLanguage(language) {
   }
 }
 
-// HELEPER FUNCS
+// HELPER FUNCS
+function validateEntryInput(titleInput, amountInput) {
+  const title = titleInput.value.trim();
+  const amount = Number(amountInput.value);
+
+  if (!title) {
+    return {
+      isValid: false,
+      messageKey: "titleRequired",
+    };
+  }
+
+  if (!Number.isFinite(amount) || amount <= 0) {
+    return {
+      isValid: false,
+      messageKey: "amountPositiveRequired",
+    };
+  }
+
+  return {
+    isValid: true,
+    title: title,
+    amount: amount,
+  };
+}
+
+function showValidationMessage(messageKey) {
+  const messages = translations[currentLanguage] || translations.en;
+  alert(messages[messageKey] || translations.en[messageKey]);
+}
+
 function deleteOrEdit(event) {
   const targetBtn = event.target;
   const entry = targetBtn.parentNode;
@@ -298,6 +340,7 @@ function inactive(elements) {
     element.classList.remove("focus");
   });
 }
+
 // ── Exports for testing ──
 if (typeof module !== "undefined") {
   module.exports = {
@@ -312,6 +355,7 @@ if (typeof module !== "undefined") {
     showEntry,
     deleteEntry,
     editEntry,
+    validateEntryInput,
     get ENTRY_LIST() {
       return ENTRY_LIST;
     },
