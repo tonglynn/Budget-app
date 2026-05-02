@@ -91,7 +91,7 @@ incomeList.addEventListener("click", deleteOrEdit);
 expenseList.addEventListener("click", deleteOrEdit);
 allList.addEventListener("click", deleteOrEdit);
 
-// HELEPER FUNCS
+// HELPER FUNCS
 function deleteOrEdit(event) {
   const targetBtn = event.target;
   const entry = targetBtn.parentNode;
@@ -147,24 +147,28 @@ function updateUI() {
   localStorage.setItem("entry_list", JSON.stringify(ENTRY_LIST));
 }
 
-function showEntry(list, type, title, amount, id) {
-  const li = document.createElement("li");
-  li.id = id;
-  li.className = type;
-
-  const entryDiv = document.createElement("div");
-  entryDiv.className = "entry";
-  entryDiv.textContent = `${title} : $${amount}`;  // 安全！
-
-  const editDiv = document.createElement("div");
-  editDiv.id = "edit";
-
-  const deleteDiv = document.createElement("div");
-  deleteDiv.id = "delete";
-
-  li.append(entryDiv, editDiv, deleteDiv);
-  list.insertAdjacentElement("afterbegin", li);
+// HELPER FUNC: Escape special HTML characters to prevent XSS attacks
+function escapeHTML(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
+
+function showEntry(list, type, title, amount, id) {
+  const safeTitle = escapeHTML(title);
+  const safeAmount = escapeHTML(amount);
+  const entry = `<li id="${id}" class="${type}">
+                    <div class="entry">${safeTitle} : $${safeAmount}</div>
+                    <div id="edit"></div>
+                    <div id="delete"></div>
+                  </li>`;
+  const position = "afterbegin";
+  list.insertAdjacentHTML(position, entry);
+}
+
 function clearElement(elements) {
   elements.forEach((element) => {
     element.innerHTML = "";
@@ -184,6 +188,7 @@ function calculateTotal(type, list) {
 function calculateBalance(income, outcome) {
   return income - outcome;
 }
+
 function clearInput(inputs) {
   inputs.forEach((input) => {
     input.value = "";
@@ -203,11 +208,13 @@ function hide(elements) {
 function active(element) {
   element.classList.add("focus");
 }
+
 function inactive(elements) {
   elements.forEach((element) => {
     element.classList.remove("focus");
   });
 }
+
 // ── Exports for testing ──
 if (typeof module !== "undefined") {
   module.exports = {
@@ -222,6 +229,7 @@ if (typeof module !== "undefined") {
     showEntry,
     deleteEntry,
     editEntry,
+    escapeHTML,
     get ENTRY_LIST() { return ENTRY_LIST; },
     set ENTRY_LIST(v) { ENTRY_LIST = v; },
   };
