@@ -240,9 +240,21 @@ function updateUI() {
   localStorage.setItem("entry_list", JSON.stringify(ENTRY_LIST));
 }
 
+// HELPER FUNC: Escape special HTML characters to prevent XSS attacks
+function escapeHTML(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
 function showEntry(list, type, title, amount, id) {
+  const safeTitle = escapeHTML(title);
+  const safeAmount = escapeHTML(amount);
   const entry = `<li id="${id}" class="${type}">
-                    <div class="entry">${title} : $${amount}</div>
+                    <div class="entry">${safeTitle} : $${safeAmount}</div>
                     <div id="edit"></div>
                     <div id="delete"></div>
                   </li>`;
@@ -298,6 +310,7 @@ function inactive(elements) {
     element.classList.remove("focus");
   });
 }
+
 // ── Exports for testing ──
 if (typeof module !== "undefined") {
   module.exports = {
@@ -312,6 +325,9 @@ if (typeof module !== "undefined") {
     showEntry,
     deleteEntry,
     editEntry,
+    escapeHTML,
+    get ENTRY_LIST() { return ENTRY_LIST; },
+    set ENTRY_LIST(v) { ENTRY_LIST = v; },
     get ENTRY_LIST() {
       return ENTRY_LIST;
     },
