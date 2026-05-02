@@ -459,3 +459,21 @@ describe("deleteOrEdit() — list click events", () => {
     expect(document.getElementById("expense-amount-input").value).toBe("200");
   });
 });
+// ── 14. escapeHTML ────────────────────────────────────────────────────────────
+describe("escapeHTML()", () => {
+  test("escapes < and > characters", () => {
+    expect(budget.escapeHTML("<script>")).toBe("&lt;script&gt;");
+  });
+  test("escapes & character", () => {
+    expect(budget.escapeHTML("a & b")).toBe("a &amp; b");
+  });
+  test("escapes double quotes", () => {
+    expect(budget.escapeHTML('"hello"')).toBe("&quot;hello&quot;");
+  });
+  test("escapes single quotes", () => {
+    expect(budget.escapeHTML("it's")).toBe("it&#039;s");
+  });
+  test("returns plain string unchanged", () => {
+    expect(budget.escapeHTML("hello")).toBe("hello");
+  });
+});
