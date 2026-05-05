@@ -6,7 +6,144 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self';">
     <title>Privacy Policy | BudgetApp</title>
-    <link href="./style.css" rel="stylesheet" type="text/css" />
+    <style>
+      * {
+        all: unset;
+        box-sizing: border-box;
+      }
+      body {
+        background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%) !important;
+        margin: 0;
+        padding: 0;
+        font-family: 'Gilroy Regular', sans-serif;
+        min-height: 100vh;
+      }
+      .budget-container.privacy-container {
+        height: auto !important;
+        min-height: 100vh !important;
+        padding-bottom: 40px !important;
+        overflow-y: auto !important;
+        background: transparent !important;
+        border-radius: 0 !important;
+        padding: 20px !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+      }
+      .app-title {
+        display: block !important;
+        text-align: left !important;
+        margin: 0 auto !important;
+        max-width: 800px !important;
+        padding-bottom: 20px !important;
+      }
+      .app-title a {
+        font-family: 'Gilroy Bold' !important;
+        font-size: 2em !important;
+        color: #1a0034 !important;
+        text-decoration: none !important;
+      }
+      .app-title a b {
+        font-weight: 800 !important;
+      }
+      .language-switcher {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        max-width: 800px !important;
+        margin: 0 auto !important;
+        margin-bottom: 20px !important;
+      }
+      .language-switcher .language-label {
+        font-family: 'Gilroy Regular' !important;
+        font-size: 1em !important;
+        color: #1a0034 !important;
+      }
+      .language-switcher select {
+        padding: 10px 20px !important;
+        border-radius: 10px !important;
+        font-size: 1em !important;
+        font-family: 'Gilroy Regular' !important;
+        background: white !important;
+        color: #1a0034 !important;
+        border: 2px solid #7c3aed !important;
+        cursor: pointer !important;
+      }
+      .privacy-content {
+        background-color: #ffffff !important;
+        margin: 0 auto !important;
+        max-width: 800px !important;
+        border-radius: 30px !important;
+        padding: 30px 40px !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1) !important;
+      }
+      .privacy-title {
+        color: #1a0034 !important;
+        font-family: 'Gilroy Bold' !important;
+        font-size: 2em !important;
+        margin-bottom: 30px !important;
+        text-align: center !important;
+      }
+      .privacy-section {
+        margin-bottom: 30px !important;
+      }
+      .privacy-section h2 {
+        color: #2a0355 !important;
+        font-family: 'Gilroy Bold' !important;
+        font-size: 1.3em !important;
+        margin-bottom: 15px !important;
+      }
+      .privacy-section p {
+        color: #555 !important;
+        font-size: 1em !important;
+        line-height: 1.8 !important;
+        margin-bottom: 15px !important;
+      }
+      .privacy-footer {
+        margin-top: 40px !important;
+        text-align: center !important;
+        padding-top: 25px !important;
+        border-top: 1px solid #eee !important;
+      }
+      .back-link {
+        display: inline-block !important;
+        padding: 14px 30px !important;
+        background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%) !important;
+        color: #ffffff !important;
+        border-radius: 25px !important;
+        font-family: 'Gilroy Bold' !important;
+        font-size: 1em !important;
+        text-decoration: none !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4) !important;
+      }
+      .back-link:hover {
+        background: linear-gradient(135deg, #6d28d9 0%, #9333ea 100%) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5) !important;
+      }
+      @media (max-width: 600px) {
+        .budget-container.privacy-container {
+          padding: 10px !important;
+        }
+        .privacy-content {
+          margin: 0 10px !important;
+          padding: 20px 15px !important;
+        }
+        .privacy-title {
+          font-size: 1.6em !important;
+        }
+        .privacy-section h2 {
+          font-size: 1.1em !important;
+        }
+        .privacy-section p {
+          font-size: 0.95em !important;
+        }
+        .language-switcher {
+          flex-direction: column !important;
+          align-items: flex-start !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <div class="budget-container privacy-container">
@@ -123,17 +260,18 @@
         },
       };
 
-      let currentLanguage = localStorage.getItem("language") || getBrowserLanguage();
-      const langSelect = document.getElementById("lang-select");
-
       function getBrowserLanguage() {
         const navigatorLang = navigator.language || navigator.userLanguage;
+        if (!navigatorLang) return "zh";
         const langCode = navigatorLang.substring(0, 2).toLowerCase();
-        if (langCode === "zh" || langCode === "ja") {
+        if (langCode === "zh" || langCode === "ja" || langCode === "en") {
           return langCode;
         }
-        return "en";
+        return "zh";
       }
+
+      let currentLanguage = localStorage.getItem("language") || getBrowserLanguage();
+      const langSelect = document.getElementById("lang-select");
 
       function applyLanguage(language) {
         if (!translations[language]) {
@@ -173,108 +311,5 @@
 
       applyLanguage(currentLanguage);
     </script>
-
-    <style>
-      body {
-        background-color: #ffffff;
-        margin: 0;
-        padding: 0;
-        font-family: 'Gilroy Regular', sans-serif;
-      }
-
-      .budget-container.privacy-container {
-        height: auto;
-        min-height: 100vh;
-        padding-bottom: 40px;
-        overflow-y: auto;
-        background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
-        border-radius: 0;
-        padding: 20px;
-      }
-
-      .privacy-content {
-        background-color: #ffffff;
-        margin: 35px auto;
-        max-width: 800px;
-        border-radius: 30px;
-        padding: 30px 40px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-      }
-
-      .privacy-title {
-        color: #1a0034;
-        font-family: "Gilroy Bold";
-        font-size: 2em;
-        margin-bottom: 30px;
-        text-align: center;
-      }
-
-      .privacy-section {
-        margin-bottom: 30px;
-      }
-
-      .privacy-section h2 {
-        color: #2a0355;
-        font-family: "Gilroy Bold";
-        font-size: 1.3em;
-        margin-bottom: 15px;
-      }
-
-      .privacy-section p {
-        color: #555;
-        font-size: 1em;
-        line-height: 1.8;
-        margin-bottom: 15px;
-      }
-
-      .privacy-footer {
-        margin-top: 40px;
-        text-align: center;
-        padding-top: 25px;
-        border-top: 1px solid #eee;
-      }
-
-      .back-link {
-        display: inline-block;
-        padding: 14px 30px;
-        background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
-        color: #ffffff;
-        border-radius: 25px;
-        font-family: "Gilroy Bold";
-        font-size: 1em;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
-      }
-
-      .back-link:hover {
-        background: linear-gradient(135deg, #6d28d9 0%, #9333ea 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
-      }
-
-      @media (max-width: 600px) {
-        .budget-container.privacy-container {
-          padding: 10px;
-        }
-
-        .privacy-content {
-          margin: 15px 10px;
-          padding: 20px 15px;
-        }
-
-        .privacy-title {
-          font-size: 1.6em;
-        }
-
-        .privacy-section h2 {
-          font-size: 1.1em;
-        }
-
-        .privacy-section p {
-          font-size: 0.95em;
-        }
-      }
-    </style>
   </body>
 </html>
