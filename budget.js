@@ -177,11 +177,15 @@ function checkCookieConsent() {
   return consent !== null;
 }
 
-function showCookieBanner() {
+function showCookieBanner(skipTimeout = false) {
   if (cookieBanner) {
-    setTimeout(() => {
+    if (skipTimeout) {
       cookieBanner.classList.add("show");
-    }, 500);
+    } else {
+      setTimeout(() => {
+        cookieBanner.classList.add("show");
+      }, 500);
+    }
   }
 }
 
@@ -429,6 +433,10 @@ if (typeof module !== "undefined") {
     editEntry,
     validateEntryInput,
     escapeHTML,
+    checkCookieConsent,
+    showCookieBanner,
+    hideCookieBanner,
+    saveCookieConsent,
     get ENTRY_LIST() {
       return ENTRY_LIST;
     },

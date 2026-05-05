@@ -4,6 +4,17 @@
 
 // ─── Minimal DOM skeleton ─────────────────────────────────────────────────────
 document.body.innerHTML = `
+  <div id="cookie-banner" class="cookie-banner">
+    <div class="cookie-content">
+      <p class="cookie-text" data-i18n="cookieMessage"></p>
+      <div class="cookie-actions">
+        <a href="privacy.html" class="privacy-link" data-i18n="privacyPolicy"></a>
+        <button id="cookie-accept" class="cookie-btn cookie-btn-primary"></button>
+        <button id="cookie-decline" class="cookie-btn cookie-btn-secondary"></button>
+      </div>
+    </div>
+  </div>
+
   <div class="balance"><span class="value"></span></div>
   <span class="income-total"></span>
   <span class="outcome-total"></span>
@@ -475,5 +486,76 @@ describe("escapeHTML()", () => {
   });
   test("returns plain string unchanged", () => {
     expect(budget.escapeHTML("hello")).toBe("hello");
+  });
+});
+
+// ── 15. Cookie Banner ────────────────────────────────────────────────────────
+describe("Cookie Banner", () => {
+  const cookieBanner = () => document.getElementById("cookie-banner");
+  const cookieAcceptBtn = () => document.getElementById("cookie-accept");
+  const cookieDeclineBtn = () => document.getElementById("cookie-decline");
+
+  beforeEach(() => {
+    localStorage.clear();
+    cookieBanner().classList.remove("show", "hide");
+  });
+
+  test("checkCookieConsent returns false when no consent stored", () => {
+    expect(budget.checkCookieConsent()).toBe(false);
+  });
+
+  test("checkCookieConsent returns true when consent stored (accepted)", () => {
+    localStorage.setItem("cookie_consent", "accepted");
+    expect(budget.checkCookieConsent()).toBe(true);
+  });
+
+  test("checkCookieConsent returns true when consent stored (declined)", () => {
+    localStorage.setItem("cookie_consent", "declined");
+    expect(budget.checkCookieConsent()).toBe(true);
+  });
+
+  test("showCookieBanner adds 'show' class to cookie banner", () => {
+    budget.showCookieBanner(true);
+    expect(cookieBanner().classList.contains("show")).toBe(true);
+  });
+
+  test("showCookieBanner with timeout adds 'show' class after 500ms", () => {
+    jest.useFakeTimers();
+    budget.showCookieBanner(false);
+    expect(cookieBanner().classList.contains("show")).toBe(false);
+    jest.advanceTimersByTime(500);
+    expect(cookieBanner().classList.contains("show")).toBe(true);
+    jest.useRealTimers();
+  });
+
+  test("hideCookieBanner removes 'show' class and adds 'hide' class", () => {
+    cookieBanner().classList.add("show");
+    budget.hideCookieBanner();
+    expect(cookieBanner().classList.contains("show")).toBe(false);
+    expect(cookieBanner().classList.contains("hide")).toBe(true);
+  });
+
+  test("saveCookieConsent saves 'accepted' to localStorage", () => {
+    budget.saveCookieConsent(true);
+    expect(localStorage.getItem("cookie_consent")).toBe("accepted");
+  });
+
+  test("saveCookieConsent saves 'declined' to localStorage", () => {
+    budget.saveCookieConsent(false);
+    expect(localStorage.getItem("cookie_consent")).toBe("declined");
+  });
+
+  test("clicking accept button saves consent and hides banner", () => {
+    cookieAcceptBtn().click();
+    expect(localStorage.getItem("cookie_consent")).toBe("accepted");
+    expect(cookieBanner().classList.contains("show")).toBe(false);
+    expect(cookieBanner().classList.contains("hide")).toBe(true);
+  });
+
+  test("clicking decline button saves consent and hides banner", () => {
+    cookieDeclineBtn().click();
+    expect(localStorage.getItem("cookie_consent")).toBe("declined");
+    expect(cookieBanner().classList.contains("show")).toBe(false);
+    expect(cookieBanner().classList.contains("hide")).toBe(true);
   });
 });
