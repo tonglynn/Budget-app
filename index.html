@@ -23,6 +23,7 @@
     </div>
 
     <div class="budget-container">
+      <header class="page-header">
       <div class="app-title">
         <a href="">Budget<b>App</b></a>
       </div>
@@ -55,9 +56,10 @@
           </div>
         </div>
       </div>
+   </header>
 
-      <div class="budget-dashboard">
-        <div class="dash-title" data-i18n="dashboard">Dashboard</div>
+      <main class="budget-dashboard">
+        <h1 class="dash-title" data-i18n="dashboard">Dashboard</h1>
         <div class="toggle">
           <div class="first-tab" data-i18n="expenses">Expenses</div>
           <div class="second-tab" data-i18n="income">Income</div>
@@ -67,6 +69,7 @@
         <div class="hide" id="expense">
           <ul class="list"></ul>
           <div class="input">
+            <label for="expense-title-input" class="sr-only">Expense title</label>
             <input
               type="text"
               id="expense-title-input"
@@ -74,21 +77,23 @@
               placeholder="title"
               data-i18n-placeholder="titlePlaceholder"
             />
+            <label for="expense-amount-input" class="sr-only">Expense amount</label>
             <input
               type="number"
               id="expense-amount-input"
               name="amount"
               placeholder="$0"
             />
-            <div class="add-expense">
-              <img src="icon/plus.png" alt="Add expense" />
-            </div>
+            <button class="add-expense" type="button" aria-label="Add expense">
+            <img src="icon/plus.png" alt="" />
+            </button>
           </div>
         </div>
 
         <div class="hide" id="income">
           <ul class="list"></ul>
           <div class="input">
+            <label for="income-title-input" class="sr-only">Income title</label>
             <input
               type="text"
               id="income-title-input"
@@ -96,23 +101,24 @@
               placeholder="title"
               data-i18n-placeholder="titlePlaceholder"
             />
+            
+            <label for="income-amount-input" class="sr-only">Income amount</label>
             <input
               type="number"
               id="income-amount-input"
               name="amount"
               placeholder="$0"
             />
-            <div class="add-income">
-              <img src="icon/plus.png" alt="Add income" />
-            </div>
+            <button class="add-income" type="button" aria-label="Add income">
+            <img src="icon/plus.png" alt="" />
+            </button>
           </div>
         </div>
 
         <div id="all">
           <ul class="list"></ul>
         </div>
-      </div>
-    </div>
+     </main>
 
     <script src="./chart.js"></script>
     <script src="./budget.js"></script>
