@@ -8,6 +8,17 @@ document.body.innerHTML = `
   <span class="income-total"></span>
   <span class="outcome-total"></span>
 
+  <!-- 语言选择器 (对应 langSelect) -->
+  <select id="language-select">
+    <option value="en">English</option>
+    <option value="zh">中文</option>
+    <option value="ja">日本語</option>
+  </select>
+
+  <!-- i18n 目标元素 (对应数据属性循环) -->
+  <h1 data-i18n="title">Original Title</h1>
+  <input id="test-input" data-i18n-placeholder="input_placeholder" />
+
   <section id="income" class="hide">
     <ul class="list"></ul>
     <input id="income-title-input" />
@@ -33,14 +44,19 @@ document.body.innerHTML = `
 const localStorageMock = (() => {
   let store = {};
   return {
-    getItem:  (k)    => store[k] ?? null,
-    setItem:  (k, v) => { store[k] = String(v); },
-    clear:    ()     => { store = {}; },
+    getItem: (k) => store[k] ?? null,
+    setItem: (k, v) => { store[k] = String(v); },
+    clear: () => { store = {}; },
   };
 })();
 Object.defineProperty(window, "localStorage", { value: localStorageMock });
 
-// Stub updateChart
+global.translations = {
+  en: { title: "Budget", input_placeholder: "Enter name", languageLabel: "Select Language" },
+  zh: { title: "预算", input_placeholder: "输入名称", languageLabel: "选择语言" },
+  ja: { title: "予算", input_placeholder: "名前を入力", languageLabel: "言語を選択" }
+};
+
 global.updateChart = jest.fn();
 
 // ─── Import module ────────────────────────────────────────────────────────────
@@ -51,6 +67,7 @@ const {
   show, hide, active, inactive,
   clearElement, clearInput,
   showEntry, deleteEntry, editEntry,
+  applyLanguage 
 } = budget;
 
 function resetList(...items) {
@@ -58,7 +75,6 @@ function resetList(...items) {
   items.forEach(i => budget.ENTRY_LIST.push(i));
 }
 
-// ─── Shorthand DOM getters ────────────────────────────────────────────────────
 const $ = (sel) => document.querySelector(sel);
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -475,5 +491,57 @@ describe("escapeHTML()", () => {
   });
   test("returns plain string unchanged", () => {
     expect(budget.escapeHTML("hello")).toBe("hello");
+  });
+});
+// ── 15. I18N TESTS ────────────────────────────────────────────────────────────
+describe("i18n / applyLanguage()", () => {
+  const langSelect = () => document.getElementById("language-select");
+  const titleEl = () => document.querySelector("[data-i18n='title']");
+  const inputEl = () => document.querySelector("[data-i18n-placeholder='input_placeholder']");
+
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  test("applyLanguage('zh') sets document lang and updates textContent", () => {
+    budget.applyLanguage("zh");
+    expect(document.documentElement.lang).toBe("zh-CN");
+    expect(titleEl().textContent).toBe("预算");
+    expect(localStorage.getItem("language")).toBe("zh");
+  });
+
+  test("applyLanguage('ja') sets document lang to ja", () => {
+    budget.applyLanguage("ja");
+    expect(document.documentElement.lang).toBe("ja");
+  });
+
+  test("applyLanguage with unknown language falls back to 'en'", () => {
+    // 覆盖 Line 160: language = "en"
+    budget.applyLanguage("fr"); 
+    expect(document.documentElement.lang).toBe("en");
+    expect(titleEl().textContent).toBe("Budget");
+  });
+
+  test("updates placeholders correctly", () => {
+    // 覆盖 Line 185-186
+    budget.applyLanguage("zh");
+    expect(inputEl().getAttribute("placeholder")).toBe("输入名称");
+  });
+
+  test("updates select value and aria-label", () => {
+    // 覆盖 Line 191-192
+    budget.applyLanguage("en");
+    expect(langSelect().value).toBe("en");
+    expect(langSelect().getAttribute("aria-label")).toBe("Select Language");
+  });
+
+  test("changing the language-select triggers applyLanguage", () => {
+    // 覆盖 Line 152-154: 事件监听器内部
+    const select = langSelect();
+    select.value = "ja";
+    select.dispatchEvent(new Event("change"));
+    
+    expect(localStorage.getItem("language")).toBe("ja");
+    expect(document.documentElement.lang).toBe("ja");
   });
 });
