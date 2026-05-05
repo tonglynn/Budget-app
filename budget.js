@@ -437,6 +437,7 @@ if (typeof module !== "undefined") {
     showCookieBanner,
     hideCookieBanner,
     saveCookieConsent,
+    applyLanguage,
     get ENTRY_LIST() {
       return ENTRY_LIST;
     },

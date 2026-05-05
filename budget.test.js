@@ -15,27 +15,38 @@ document.body.innerHTML = `
     </div>
   </div>
 
+  <div class="language-switcher">
+    <label for="lang-select" class="language-label" data-i18n="languageLabel">
+      Language Selection
+    </label>
+    <select id="lang-select" aria-label="Language Selection">
+      <option value="en">English</option>
+      <option value="zh">中文</option>
+      <option value="ja">日本語</option>
+    </select>
+  </div>
+
   <div class="balance"><span class="value"></span></div>
   <span class="income-total"></span>
   <span class="outcome-total"></span>
 
   <section id="income" class="hide">
     <ul class="list"></ul>
-    <input id="income-title-input" />
+    <input id="income-title-input" data-i18n-placeholder="titlePlaceholder" />
     <input id="income-amount-input" />
   </section>
   <section id="expense" class="hide">
     <ul class="list"></ul>
-    <input id="expense-title-input" />
+    <input id="expense-title-input" data-i18n-placeholder="titlePlaceholder" />
     <input id="expense-amount-input" />
   </section>
   <section id="all">
     <ul class="list"></ul>
   </section>
 
-  <button class="first-tab"></button>
-  <button class="second-tab"></button>
-  <button class="third-tab"></button>
+  <button class="first-tab" data-i18n="expenses"></button>
+  <button class="second-tab" data-i18n="income"></button>
+  <button class="third-tab" data-i18n="all"></button>
   <button class="add-expense"></button>
   <button class="add-income"></button>
 `;
@@ -557,5 +568,63 @@ describe("Cookie Banner", () => {
     expect(localStorage.getItem("cookie_consent")).toBe("declined");
     expect(cookieBanner().classList.contains("show")).toBe(false);
     expect(cookieBanner().classList.contains("hide")).toBe(true);
+  });
+});
+
+// ── 16. I18N Tests ─────────────────────────────────────────────────────
+describe("I18N", () => {
+  beforeEach(() => {
+    localStorage.clear();
+  });
+
+  test("applyLanguage uses 'en' when unknown language provided", () => {
+    budget.applyLanguage("invalid-language-code");
+    expect(localStorage.getItem("language")).toBe("en");
+    expect(document.documentElement.lang).toBe("en");
+  });
+
+  test("applyLanguage sets documentElement.lang to zh-CN for 'zh'", () => {
+    budget.applyLanguage("zh");
+    expect(document.documentElement.lang).toBe("zh-CN");
+  });
+
+  test("applyLanguage sets documentElement.lang to 'ja' for 'ja'", () => {
+    budget.applyLanguage("ja");
+    expect(document.documentElement.lang).toBe("ja");
+  });
+
+  test("applyLanguage updates [data-i18n] elements text content", () => {
+    budget.applyLanguage("en");
+    const firstTab = document.querySelector(".first-tab");
+    expect(firstTab.textContent).toBe("Expenses");
+
+    budget.applyLanguage("zh");
+    expect(firstTab.textContent).toBe("支出");
+
+    budget.applyLanguage("ja");
+    expect(firstTab.textContent).toBe("支出");
+  });
+
+  test("applyLanguage updates [data-i18n-placeholder] elements placeholder", () => {
+    const incomeTitleInput = document.getElementById("income-title-input");
+    budget.applyLanguage("en");
+    expect(incomeTitleInput.placeholder).toBe("title");
+
+    budget.applyLanguage("zh");
+    expect(incomeTitleInput.placeholder).toBe("标题");
+
+    budget.applyLanguage("ja");
+    expect(incomeTitleInput.placeholder).toBe("タイトル");
+  });
+
+  test("applyLanguage updates lang-select value and aria-label", () => {
+    const langSelect = document.getElementById("lang-select");
+    budget.applyLanguage("zh");
+    expect(langSelect.value).toBe("zh");
+    expect(langSelect.getAttribute("aria-label")).toBe("语言选择");
+
+    budget.applyLanguage("ja");
+    expect(langSelect.value).toBe("ja");
+    expect(langSelect.getAttribute("aria-label")).toBe("言語選択");
   });
 });
