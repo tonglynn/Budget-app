@@ -123,8 +123,17 @@
         },
       };
 
-      let currentLanguage = localStorage.getItem("language") || "en";
+      let currentLanguage = localStorage.getItem("language") || getBrowserLanguage();
       const langSelect = document.getElementById("lang-select");
+
+      function getBrowserLanguage() {
+        const navigatorLang = navigator.language || navigator.userLanguage;
+        const langCode = navigatorLang.substring(0, 2).toLowerCase();
+        if (langCode === "zh" || langCode === "ja") {
+          return langCode;
+        }
+        return "en";
+      }
 
       function applyLanguage(language) {
         if (!translations[language]) {
@@ -148,6 +157,8 @@
           }
         });
 
+        document.title = translations[language].privacyTitle + " | BudgetApp";
+
         if (langSelect) {
           langSelect.value = language;
         }
@@ -164,82 +175,104 @@
     </script>
 
     <style>
-      .privacy-container {
+      body {
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+        font-family: 'Gilroy Regular', sans-serif;
+      }
+
+      .budget-container.privacy-container {
         height: auto;
         min-height: 100vh;
         padding-bottom: 40px;
         overflow-y: auto;
+        background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%);
+        border-radius: 0;
+        padding: 20px;
       }
 
       .privacy-content {
         background-color: #ffffff;
-        margin: 35px 20px 20px;
+        margin: 35px auto;
+        max-width: 800px;
         border-radius: 30px;
-        padding: 30px 20px;
+        padding: 30px 40px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
       }
 
       .privacy-title {
         color: #1a0034;
         font-family: "Gilroy Bold";
-        font-size: 1.8em;
-        margin-bottom: 25px;
+        font-size: 2em;
+        margin-bottom: 30px;
         text-align: center;
       }
 
       .privacy-section {
-        margin-bottom: 25px;
+        margin-bottom: 30px;
       }
 
       .privacy-section h2 {
         color: #2a0355;
         font-family: "Gilroy Bold";
-        font-size: 1.2em;
-        margin-bottom: 10px;
+        font-size: 1.3em;
+        margin-bottom: 15px;
       }
 
       .privacy-section p {
-        color: #444;
-        font-size: 0.95em;
-        line-height: 1.7;
-        margin-bottom: 10px;
+        color: #555;
+        font-size: 1em;
+        line-height: 1.8;
+        margin-bottom: 15px;
       }
 
       .privacy-footer {
-        margin-top: 30px;
+        margin-top: 40px;
         text-align: center;
-        padding-top: 20px;
+        padding-top: 25px;
         border-top: 1px solid #eee;
       }
 
       .back-link {
         display: inline-block;
-        padding: 12px 25px;
+        padding: 14px 30px;
         background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%);
         color: #ffffff;
-        border-radius: 20px;
+        border-radius: 25px;
         font-family: "Gilroy Bold";
-        font-size: 0.95em;
+        font-size: 1em;
         text-decoration: none;
         transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(124, 58, 237, 0.4);
       }
 
       .back-link:hover {
         background: linear-gradient(135deg, #6d28d9 0%, #9333ea 100%);
-        transform: scale(1.05);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5);
       }
 
-      @media (max-width: 400px) {
+      @media (max-width: 600px) {
+        .budget-container.privacy-container {
+          padding: 10px;
+        }
+
         .privacy-content {
-          margin: 20px 10px;
+          margin: 15px 10px;
           padding: 20px 15px;
         }
 
         .privacy-title {
-          font-size: 1.5em;
+          font-size: 1.6em;
         }
 
         .privacy-section h2 {
           font-size: 1.1em;
+        }
+
+        .privacy-section p {
+          font-size: 0.95em;
         }
       }
     </style>
