@@ -629,3 +629,38 @@ input[type="number"] {
   margin-left: 20px;
   margin-top: 30px;
 }
+/* PRIVACY PAGE */
+.privacy-container {
+  overflow: hidden;
+}
+
+.privacy-dashboard {
+  min-height: calc(100vh - 80px);
+  max-height: calc(100vh - 80px);
+  padding-bottom: 30px;
+  overflow-y: auto;
+}
+
+.privacy-content {
+  padding: 0 28px 35px 28px;
+}
+
+.privacy-content h2 {
+  color: #2a0355;
+  font-family: "Gilroy Bold";
+  font-size: 1em;
+  margin-top: 22px;
+  margin-bottom: 10px;
+}
+
+.privacy-content p {
+  color: #444;
+  font-size: 0.9em;
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+
+.privacy-content h2:not(:first-child) {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 18px;
+}

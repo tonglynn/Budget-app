@@ -4,163 +4,80 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self';" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self' data:; script-src 'self'; style-src 'self';"
+    />
     <title>Privacy Policy | BudgetApp</title>
     <link href="./style.css" rel="stylesheet" type="text/css" />
   </head>
+
   <body>
-    <div class="budget-container">
+    <div class="budget-container privacy-container">
       <header class="page-header">
         <div class="app-title">
           <a href="index.html">Budget<b>App</b></a>
         </div>
+
+        <div class="language-switcher">
+          <label for="lang-select" class="language-label" data-i18n="languageLabel">
+            Language
+          </label>
+          <select id="lang-select" aria-label="Language">
+            <option value="en">English</option>
+            <option value="zh">中文</option>
+            <option value="ja">日本語</option>
+          </select>
+        </div>
       </header>
 
-      <main class="budget-dashboard">
-        <h1 class="dash-title">Privacy Policy</h1>
-        
-        <section style="padding: 0 35px 35px 35px;">
-          <h2 style="color: #2a0355; font-family: 'Gilroy Bold'; font-size: 1em; margin-bottom: 10px; margin-top: 20px;">
-            Information We Collect
-          </h2>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 10px;">
-            We collect information you provide directly to us, such as when you create an account, make a transaction, or communicate with us. This includes: transaction data (income and expense entries you record), and any other information you choose to provide.
-          </p>
-          <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
-          <h2 style="color: #2a0355; font-family: 'Gilroy Bold'; font-size: 1em; margin-bottom: 10px;">
-            我们收集的信息
-          </h2>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 10px;">
-            我们收集您直接向我们提供的信息，例如当您创建账户、进行交易或与我们沟通时。这包括：交易数据（您记录的收入和支出条目），以及您选择提供的任何其他信息。
-          </p>
-          <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
-          <h2 style="color: #2a0355; font-family: 'Gilroy Bold'; font-size: 1em; margin-bottom: 10px;">
-            私たちが収集する情報
-          </h2>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 20px;">
-            私たちは、アカウントを作成したり、取引を行ったり、私たちと通信したりする際に、あなたが直接私たちに提供する情報を収集します。これには：取引データ（あなたが記録した収入と支出の記録）、以及あなたが提供するその他の情報が含まれます。
-          </p>
-          <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
+      <main class="budget-dashboard privacy-dashboard">
+        <h1 class="dash-title" data-i18n="privacyTitle">Privacy Policy</h1>
 
-          <h2 style="color: #2a0355; font-family: 'Gilroy Bold'; font-size: 1em; margin-bottom: 10px; margin-top: 20px;">
-            How We Use Your Information
-          </h2>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 10px;">
-            We use the information we collect to provide, maintain, and improve our services, process transactions, and communicate with you about your account and our services.
+        <section class="privacy-content">
+          <h2 data-i18n="section1Title">Information We Collect</h2>
+          <p data-i18n="section1Content">
+            We collect information you provide directly to us, such as when you create
+            an account, make a transaction, or communicate with us. This includes
+            transaction data and any other information you choose to provide.
           </p>
-          <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
-          <h2 style="color: #2a0355; font-family: 'Gilroy Bold'; font-size: 1em; margin-bottom: 10px;">
-            我们如何使用您的信息
-          </h2>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 10px;">
-            我们使用收集的信息来提供，维护和改进我们的服务，处理交易，以及就您的账户和我们的服务与您沟通。
-          </p>
-          <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
-          <h2 style="color: #2a0355; font-family: 'Gilroy Bold'; font-size: 1em; margin-bottom: 10px;">
-            情報の使用方法
-          </h2>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 20px;">
-            私たちは、収集した情報を使用して、サービスを提供し、維持し、改善し、取引を処理し、あなたのアカウントと私たちのサービスについてあなたと通信します。
-          </p>
-          <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
 
-          <h2 style="color: #2a0355; font-family: 'Gilroy Bold'; font-size: 1em; margin-bottom: 10px; margin-top: 20px;">
-            Cookies and Tracking
-          </h2>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 10px;">
-            We use cookies and similar tracking technologies to track activity on our website and store certain information. Cookies are files with a small amount of data which may include an anonymous unique identifier.
+          <h2 data-i18n="section2Title">How We Use Your Information</h2>
+          <p data-i18n="section2Content">
+            We use the information we collect to provide, maintain, and improve our
+            services, process transactions, and communicate with you about your account.
           </p>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 10px;">
-            You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent. However, if you do not accept cookies, you may not be able to use some portions of our service.
-          </p>
-          <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
-          <h2 style="color: #2a0355; font-family: 'Gilroy Bold'; font-size: 1em; margin-bottom: 10px;">
-            Cookies 和追踪
-          </h2>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 10px;">
-            我们使用 cookies 和类似的追踪技术来追踪网站上的活动并存储某些信息。Cookies 是包含少量数据的文件，其中可能包含匿名唯一标识符。
-          </p>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 10px;">
-            您可以指示您的浏览器拒绝所有 cookies 或在发送 cookies 时进行指示。但是，如果您不接受 cookies，您可能无法使用我们服务的某些部分。
-          </p>
-          <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
-          <h2 style="color: #2a0355; font-family: 'Gilroy Bold'; font-size: 1em; margin-bottom: 10px;">
-            Cookies とトラッキング
-          </h2>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 10px;">
-            私たちは、Web サイト上のアクティビティを追跡し、特定の情報を保存するために、Cookies や同様のトラッキング技術を使用しています。Cookies は、小さな量のデータを含むファイルで、匿名の一意の識別子を含む場合があります。
-          </p>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 20px;">
-            あなたは、ブラウザにすべての Cookies を拒否するか、Cookie が送信されているときを示すように指示できます。ただし、Cookies を受け入れない場合、サービスの一部を使用できない場合があります。
-          </p>
-          <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
 
-          <h2 style="color: #2a0355; font-family: 'Gilroy Bold'; font-size: 1em; margin-bottom: 10px; margin-top: 20px;">
-            Data Storage and Security
-          </h2>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 10px;">
-            We store your data locally on your device using browser localStorage. This means your data is stored on your own device and is not transmitted to our servers. We implement appropriate security measures to protect your personal information.
+          <h2 data-i18n="section3Title">Cookies and Tracking</h2>
+          <p data-i18n="section3Content">
+            We use cookies and similar tracking technologies to track activity on our
+            website and store certain information.
           </p>
-          <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
-          <h2 style="color: #2a0355; font-family: 'Gilroy Bold'; font-size: 1em; margin-bottom: 10px;">
-            数据存储和安全
-          </h2>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 10px;">
-            我们使用浏览器的 localStorage 将您的数据本地存储在您的设备上。这意味着您的数据存储在您自己的设备上，不会传输到我们的服务器。我们实施适当的安全措施来保护您的个人信息。
+          <p data-i18n="section3Content2">
+            You can instruct your browser to refuse all cookies. However, if you do not
+            accept cookies, you may not be able to use some parts of the service.
           </p>
-          <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
-          <h2 style="color: #2a0355; font-family: 'Gilroy Bold'; font-size: 1em; margin-bottom: 10px;">
-            データの保存とセキュリティ
-          </h2>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 20px;">
-            私たちはブラウザの localStorage を使用して、あなたのデータをあなたのデバイスにローカルに保存します。これは、あなたのデータがあなたのデバイスに保存され、私たちのサーバーに送信されないことを意味します。私たちはあなたの个人信息的保护するために適切なセキュリティ対策を実施しています。
-          </p>
-          <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
 
-          <h2 style="color: #2a0355; font-family: 'Gilroy Bold'; font-size: 1em; margin-bottom: 10px; margin-top: 20px;">
-            Your Rights
-          </h2>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 10px;">
-            You have the right to access, correct, or delete your personal data stored in our application. You can manage your data through the application's interface or by clearing your browser's localStorage.
+          <h2 data-i18n="section4Title">Data Storage and Security</h2>
+          <p data-i18n="section4Content">
+            We store your data locally on your device using browser localStorage.
           </p>
-          <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
-          <h2 style="color: #2a0355; font-family: 'Gilroy Bold'; font-size: 1em; margin-bottom: 10px;">
-            您的权利
-          </h2>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 10px;">
-            您有权访问、更正或删除存储在我们应用程序中的您的个人数据。您可以通过应用程序的界面或通过清除浏览器的 localStorage 来管理您的数据。
-          </p>
-          <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
-          <h2 style="color: #2a0355; font-family: 'Gilroy Bold'; font-size: 1em; margin-bottom: 10px;">
-            あなたの権利
-          </h2>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 20px;">
-            あなたは私たちのアプリケーションに保存されたあなたの个人データにアクセスしたり、更正したり、削除したりする権利があります。あなたはアプリケーションのインターフェースするか、ブラウザの localStorage をクリアすることでデータを管理できます。
-          </p>
-          <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
 
-          <h2 style="color: #2a0355; font-family: 'Gilroy Bold'; font-size: 1em; margin-bottom: 10px; margin-top: 20px;">
-            Contact Us
-          </h2>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 10px;">
-            If you have any questions about this Privacy Policy, please contact us through our website.
+          <h2 data-i18n="section5Title">Your Rights</h2>
+          <p data-i18n="section5Content">
+            You have the right to access, correct, or delete your personal data stored
+            in our application.
           </p>
-          <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
-          <h2 style="color: #2a0355; font-family: 'Gilroy Bold'; font-size: 1em; margin-bottom: 10px;">
-            联系我们
-          </h2>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 10px;">
-            如果您对本隐私政策有任何疑问，请通过我们的网站与我们联系。
-          </p>
-          <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 15px 0;">
-          <h2 style="color: #2a0355; font-family: 'Gilroy Bold'; font-size: 1em; margin-bottom: 10px;">
-            お問い合わせ
-          </h2>
-          <p style="color: #444; font-size: 0.9em; line-height: 1.6; margin-bottom: 30px;">
-            このプライバシー Policy についてご質問がある場合は、Web サイトを通じて私たちにお問い合わせください。
+
+          <h2 data-i18n="section6Title">Contact Us</h2>
+          <p data-i18n="section6Content">
+            If you have any questions about this Privacy Policy, please contact us
+            through our website.
           </p>
         </section>
       </main>
     </div>
+
+    <script src="./privacy.js"></script>
   </body>
 </html>
